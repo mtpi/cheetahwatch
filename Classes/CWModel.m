@@ -46,6 +46,11 @@
         [self setKeys:[NSArray arrayWithObject:@"connectionState"] triggerChangeNotificationsForDependentKey:@"connected"];
         [self setKeys:[NSArray arrayWithObject:@"connectionState"] triggerChangeNotificationsForDependentKey:@"disconnected"];
         
+        [self setKeys:[NSArray arrayWithObject:@"pinStatus"] triggerChangeNotificationsForDependentKey:@"pinLockRequired"];
+        [self setKeys:[NSArray arrayWithObject:@"pinStatus"] triggerChangeNotificationsForDependentKey:@"pinStatusKnown"];
+        
+        [self setKeys:[NSArray arrayWithObject:@"modesPreference"] triggerChangeNotificationsForDependentKey:@"modesPreferenceKnown"];
+        
         beenHere = YES;
     }
 }
@@ -119,8 +124,8 @@
     [self setHwVersion:nil];
     [self setManufacturer:nil];
     [self setModel:nil];
-    [self setModesPreference:0];
-    [self setPinLock:NO];
+    [self setModesPreference:CWModeUnknown];
+    [self setPinStatus:CWPinStatusUnknown];
 }
 
 // write model to disk
@@ -570,15 +575,25 @@
 {
     modesPreference = newPreference;
 }
-
-- (BOOL)pinLock
-{return pinLock;}
-- (void)setPinLock:(BOOL)status
+- (BOOL)modesPreferenceKnown
 {
-#ifdef DEBUG
-    NSLog(@"CWModel: setting pin lock: %@", status?@"YES":@"NO");
-#endif
-    pinLock = status;
+    return (modesPreference != CWModeUnknown);
+}
+- (CWPinStatus)pinStatus
+{
+    return pinStatus;
+}
+- (void)setPinStatus:(CWPinStatus)status
+{
+    pinStatus = status;
+}
+- (BOOL)pinStatusKnown
+{
+    return (pinStatus != CWPinStatusUnknown);
+}
+- (BOOL)pinLockRequired
+{
+    return (pinStatus == CWPinStatusRequired);
 }
 
 - (void)checkTrafficLimit
@@ -614,8 +629,8 @@
             NSLog(@"CWModel: traffic limit exceeded (limit = %lld, actual = %lld)", limit, traffic);
 #endif
             // check for last warning date - consider to enter exactly once when set to 'Never'
-            if (lastTrafficWarningDate == nil ||
-                [preferences trafficWarningInterval] != 0 && [lastTrafficWarningDate timeIntervalSinceNow] < -[preferences trafficWarningInterval]) {
+            if ((lastTrafficWarningDate == nil ||
+                [preferences trafficWarningInterval] != 0) && [lastTrafficWarningDate timeIntervalSinceNow] < -[preferences trafficWarningInterval]) {
 #ifdef DEBUG
                 NSLog(@"CWModel: issuing traffic warning to user");
 #endif
@@ -641,9 +656,9 @@
 	delegate = newDelegate;
 }
 
-/*- (void) setValue: (id)anObject forUndefinedKey: (NSString*)aKey
+- (BOOL)alwaysDisabled
 {
-    return;
-}*/
+    return NO;
+}
 
 @end

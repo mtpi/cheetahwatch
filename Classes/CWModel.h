@@ -27,11 +27,18 @@
 #import "CWPreferences.h"
 
 typedef enum {
+    CWModeUnknown        = 0,
     CWMode3GPreferred    = 1,
     CWModeGPRSPreferred  = 2,
     CWMode3GOnly         = 3,
     CWModeGPRSOnly       = 4,
 } CWModesPreference;
+
+typedef enum {
+    CWPinStatusUnknown      = 0,
+    CWPinStatusRequired     = 1,
+    CWPinStatusUnrequired   = 2,
+} CWPinStatus;
 
 @interface CWModel : NSObject {
 
@@ -58,8 +65,7 @@ typedef enum {
     NSString *manufacturer;
     NSString *model;
     CWModesPreference modesPreference;
-    BOOL pinLock;
-	BOOL alwaysDisabled;
+    CWPinStatus pinStatus;
 
     CWConnectionRecord *currentRecord;
 
@@ -157,9 +163,12 @@ typedef enum {
 
 - (CWModesPreference)modesPreference;
 - (void)setModesPreference:(CWModesPreference)newPreference;
+- (BOOL)modesPreferenceKnown;
 
-- (BOOL)pinLock;
-- (void)setPinLock:(BOOL)status;
+- (CWPinStatus)pinStatus;
+- (void)setPinStatus:(CWPinStatus)status;
+- (BOOL)pinStatusKnown;
+- (BOOL)pinLockRequired;
 
 - (BOOL)alwaysDisabled;
 

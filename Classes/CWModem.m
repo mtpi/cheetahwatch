@@ -382,11 +382,10 @@
         // reply example: +CLCK: 0
         if ([scanner scanInteger:&mode]) {
             if (mode) {
-                [model setPinLock:YES];
+                [model setPinStatus:CWPinStatusRequired];
             } else {
-                [model setPinLock:NO];
+                [model setPinStatus:CWPinStatusUnrequired];
             }
-
         }
     }
 }
@@ -579,6 +578,7 @@
 
 - (void)setModesPref:(CWModesPreference)newPref
 {
+    [model setModesPreference:CWModeUnknown];
     if ([[model manufacturer] isEqualTo:@"Huawei"]) {
         if (newPref==CWModeGPRSOnly) {
             [self sendModemCommand:@"AT^SYSCFG=13,1,3FFFFFFF,2,4"];
@@ -636,7 +636,7 @@
         // create a new NSFileHandle for the modem port and start reading in the background
         modemHandle = [[NSFileHandle alloc] initWithFileDescriptor:fd closeOnDealloc:YES];
         [modemHandle waitForDataInBackgroundAndNotify];
-
+        
         // send commands to query some basic information
         [self sendModemCommand:@"AT+CGMI"];       // query manufacterer
         [self sendModemCommand:@"AT+CGMM"];       // query model
@@ -688,7 +688,7 @@
     }
 }
 
-- (void)sendPin: (NSString*) pin
+- (void)sendPin:(NSString*) pin
 {
     [self sendModemCommand:[NSString stringWithFormat:@"AT+CPIN=%@", pin]];
 	[self sendModemCommand:@"AT+CPIN?"];
@@ -705,8 +705,10 @@
 #ifdef DEBUG
     NSLog(@"CWModem: setPinLock: %@ pin: %@", enabled?@"YES":@"NO", pin);
 #endif
+    [model setPinStatus:CWPinStatusUnknown];
     if (enabled) {
         [self sendModemCommand:[NSString stringWithFormat:@"AT+CLCK=\"SC\",1,\"%@\"", pin]];
+        
     } else {
         [self sendModemCommand:[NSString stringWithFormat:@"AT+CLCK=\"SC\",0,\"%@\"", pin]];
     }

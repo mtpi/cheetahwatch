@@ -56,7 +56,7 @@ typedef enum {
     NSUInteger rxSpeed;
     NSUInteger txSpeed;
     NSUInteger signalStrength;
-    NSUInteger mode;
+    NSInteger mode;
     NSString *carrier;
     NSString *apn;
     NSString *imei;

@@ -24,6 +24,8 @@
 #import "CWModem.h"
 #import "CWNetworks.h"
 #import "CWUSBFinder.h"
+#import "CWSMS.h"
+#import "CWContact.h"
 
 // interval in which some commands are sent regularily
 #define CWPeriodicCommandInterval       5.0
@@ -66,6 +68,7 @@
     [modemData release];
     [modemCommands release];
     [model release];
+    [curSMS release];
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     [super dealloc];
 }
@@ -235,7 +238,7 @@
     }
     
 #ifdef DEBUG
-    NSLog(@"CWModem: ZPAS str: %@ ZPAS int: %d", mode_str, [model mode]);
+    NSLog(@"CWModem: ZPAS str: %@ ZPAS int: %lu", mode_str, [model mode]);
 #endif
 }
 
@@ -390,6 +393,99 @@
     }
 }
 
+- (void)processPDU:(NSString*)pdu
+{
+    NSMutableData *data = [[NSMutableData alloc] init];
+    NSRange range;
+    unsigned int byte;
+    range.location = 0;
+    range.length = 2;
+    while (range.location < [pdu length]) {
+        [[NSScanner scannerWithString:[pdu substringWithRange:range]] scanHexInt:&byte];
+        [data appendBytes:(const UInt8*)&byte length:1];
+        range.location += 2;
+    }
+    curSMS.pdu = data;
+    if (![curSMS validPDU]) {
+        // not a valid SMS, ignore it...
+        [self setCurSMS:nil];
+        return;
+    }
+    [curSMS processPDU];
+    [model addSmsObject:curSMS];
+}
+
+// sms message list entry
+- (void)processCMGL:(NSScanner *)scanner
+{
+    NSInteger index;
+    NSInteger stat;
+    NSInteger length;
+    if (![scanner scanInteger:&index])
+        return;
+    if (![scanner scanString:@"," intoString:nil])
+        return;
+    if (![scanner scanInteger:&stat])
+        return;
+    if (![scanner scanString:@"," intoString:nil])
+        return;
+    [scanner scanUpToString:@"," intoString:nil];
+    if (![scanner scanString:@"," intoString:nil])
+        return;
+    if (![scanner scanInteger:&length])
+        return;
+    
+    [self setCurSMS:[[CWSMS alloc] init]];
+    curSMS.index = index;
+    curSMS.stat = stat;
+    curSMS.length = length;
+    selForNextReceivedLine = @selector(processPDU:);
+}
+
+// incoming SMS
+- (void)processCMTI:(NSScanner *)scanner
+{
+    NSInteger index;
+    if (![scanner scanUpToString:@"," intoString:nil]) // memory, should be "SM"
+        return;
+    [scanner scanString:@"," intoString:nil];
+    if (![scanner scanInteger:&index])
+        return;
+    [self sendModemCommand:[NSString stringWithFormat:@"AT+CMGR=%lu", index]];
+}
+
+// sms message list entry
+- (void)processCMGR:(NSScanner *)scanner
+{
+    NSInteger index;
+    NSInteger stat;
+    NSInteger length;
+    NSString *issuedCommand = [modemCommands objectAtIndex:0];
+    NSScanner *issuedCommandScanner = [NSScanner scannerWithString:issuedCommand];
+    
+    if (![issuedCommandScanner scanUpToString:@"=" intoString:nil])
+        return;
+    [issuedCommandScanner scanString:@"=" intoString:nil];
+    if (![issuedCommandScanner scanInteger:&index])
+        return;
+    
+    if (![scanner scanInteger:&stat])
+        return;
+    if (![scanner scanString:@"," intoString:nil])
+        return;
+    [scanner scanUpToString:@"," intoString:nil]; //alpha, optional, dunno what is...
+    if (![scanner scanString:@"," intoString:nil])
+        return;
+    if (![scanner scanInteger:&length])
+        return;
+    
+    [self setCurSMS:[[CWSMS alloc] init]];
+    curSMS.index = index;
+    curSMS.stat = stat;
+    curSMS.length = length;
+    selForNextReceivedLine = @selector(processPDU:);
+}
+
 // dequeue next command from list and send it to the modem, then start timeout timer
 - (void)dequeueNextModemCommand
 {
@@ -480,6 +576,12 @@
         [self processSYSCONFIG:scanner];
     } else if ([command isEqual:@"+CLCK"]) {
         [self processCLCK:scanner];
+    } else if ([command isEqual:@"+CMGL"]) {
+        [self processCMGL:scanner];
+    } else if ([command isEqual:@"+CMTI"]) {
+        [self processCMTI:scanner];
+    } else if ([command isEqual:@"+CMGR"]) {
+        [self processCMGR:scanner];
     } else if ([command isEqual:@"+CME ERROR"]) {
         [self processCMEERROR:scanner];
     } else {
@@ -498,6 +600,11 @@
 #ifdef DEBUG
     NSLog(@"CWModem: processing %@", line);
 #endif
+    if (selForNextReceivedLine) {
+        [self performSelector:selForNextReceivedLine withObject:line];
+        selForNextReceivedLine = nil;
+        return;
+    }
     // look for reply or OK or ERROR
     if ([line isEqual:@"OK"] || [line isEqual:@"ERROR"]) {
         // command terminated, send next in queue
@@ -617,6 +724,9 @@
         [self sendModemCommand:@"AT^SYSCONFIG?"];  // query mode preferences (Huawei)
     }
     [self sendModemCommand:@"AT+CLCK=\"SC\",2"];   // query pin lock status
+    if ([model countSms]==0) {
+        [self sendModemCommand:@"AT+CMGL=4"];     // list all sms
+    }
 }
 
 // open modem, allocata a file handle and send initial data
@@ -630,7 +740,7 @@
     // open modem device - need to use UNIX system call since NSFileHandle can't open a file for read and write
     fd = open([devicePath cStringUsingEncoding:NSASCIIStringEncoding], O_RDWR | O_NOCTTY);
 #ifdef DEBUG
-    NSLog(@"CWModem: open returned %d", fd);
+    NSLog(@"CWModem: open returned %ld", fd);
 #endif
     if (fd != -1) {
         // create a new NSFileHandle for the modem port and start reading in the background
@@ -638,6 +748,8 @@
         [modemHandle waitForDataInBackgroundAndNotify];
         
         // send commands to query some basic information
+        [self sendModemCommand:@"AT+CMGF=0"];     // SMS PDU mode
+        [self sendModemCommand:@"AT+CNMI=1,1,0,0,0"]; // receive new SMS notification
         [self sendModemCommand:@"AT+CGMI"];       // query manufacterer
         [self sendModemCommand:@"AT+CGMM"];       // query model
         [self sendModemCommand:@"AT+CGSN"];       // query IMEI
@@ -743,4 +855,14 @@
 	delegate = newDelegate;
 }
 
+- (CWSMS*)curSMS
+{
+    return curSMS;
+}
+- (void)setCurSMS:(CWSMS *)newSMS
+{
+    [curSMS release];
+    [newSMS retain];
+    curSMS = newSMS;
+}
 @end

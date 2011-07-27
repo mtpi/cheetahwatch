@@ -29,15 +29,30 @@
 
 @implementation CWModel
 
-/*+ (NSSet *)keyPathsForValuesAffectingValueForKey:(NSString *)key
++ (NSSet *)keyPathsForValuesAffectingValueForKey:(NSString *)key
 {
-    
-}*/
+    if ([key isEqualToString:@"modelForIcon"]) {
+        return [NSSet setWithObjects:@"mode", @"signalStrength", @"connected", @"modemAvailable", @"duration", nil];
+    } else if ([key isEqualToString:@"modelForConnectionState"]) {
+        return [NSSet setWithObjects:@"connectionState", @"duration", nil];
+    } else if ([key isEqualToString:@"connected"]) {
+        return [NSSet setWithObject:@"connectionState"];
+    } else if ([key isEqualToString:@"disconnected"]) {
+        return [NSSet setWithObject:@"connectionState"];
+    } else if ([key isEqualToString:@"pinLockRequired"]) {
+        return [NSSet setWithObject:@"pinStatus"];
+    } else if ([key isEqualToString:@"pinStatusKnown"]) {
+        return [NSSet setWithObject:@"pinStatus"];
+    } else if ([key isEqualToString:@"modesPreferenceKnown"]) {
+        return [NSSet setWithObject:@"modesPreference"];
+    }
+}
 
-+ (void)initialize
+/*+ (void)initialize
 {
     static BOOL beenHere;
     if (!beenHere) {
+        // DEPRECATED IN 10.5
         // make derived attributes binding capable
         [self setKeys:[NSArray arrayWithObjects:@"mode", @"signalStrength", @"connected", @"modemAvailable", @"duration", nil]
               triggerChangeNotificationsForDependentKey:@"modelForIcon"];
@@ -53,7 +68,7 @@
         
         beenHere = YES;
     }
-}
+}*/
 
 // return a model initialized from disk data
 + (id)persistentModel
@@ -70,6 +85,12 @@
     return model;
 }
 
+- (void)initVolatileVars
+{
+    [self setSms:[NSMutableArray new]];
+    [self setContacts:[NSMutableArray new]];
+}
+
 // object initializer
 - (id)init
 {
@@ -77,6 +98,7 @@
         connectionRecords = [NSMutableArray new];
         preferences = [CWPreferences new];
         lastPurgeDate = [[NSCalendarDate date] retain];
+        [self initVolatileVars];
     }
     return self;
 }
@@ -88,6 +110,8 @@
     [preferences release];
     [lastPurgeDate release];
     [lastTrafficWarningDate release];
+    [contacts release];
+    [sms release];
     [super dealloc];
 }
 
@@ -100,6 +124,7 @@
 		lastPurgeDate = [[decoder decodeObjectForKey:@"lastPurgeDate"] retain];
         // calculate cumulated bytes
         [self calculateCumulatedBytes];
+        [self initVolatileVars];
 	}
 	return self;
 }
@@ -126,6 +151,14 @@
     [self setModel:nil];
     [self setModesPreference:CWModeUnknown];
     [self setPinStatus:CWPinStatusUnknown];
+
+    [self willChangeValueForKey:@"sms"];
+    [[self sms] removeAllObjects];
+    [self didChangeValueForKey:@"sms"];
+
+    [self willChangeValueForKey:@"contacts"];
+    [[self contacts] removeAllObjects];
+    [self didChangeValueForKey:@"contacts"];
 }
 
 // write model to disk
@@ -205,7 +238,7 @@
         [lastPurgeDate autorelease];
         // look at reset mode
 #ifdef DEBUG
-        NSLog(@"CWModel: cleanup mode = %d", [preferences resetMode]);
+        NSLog(@"CWModel: cleanup mode = %ld", [preferences resetMode]);
 #endif
         if ([preferences resetMode] == CWResetStatisticsModeDay) {
             // clean up after x days
@@ -661,4 +694,41 @@
     return NO;
 }
 
+- (NSMutableArray*)contacts
+{
+    return contacts;
+}
+- (void)setContacts:(NSMutableArray *)newContacts
+{
+    [newContacts retain];
+    [contacts release];
+    contacts = newContacts;
+}
+- (NSMutableArray*)sms
+{
+    // strange way to get mutable array objects in order to make KVO aware of the changes
+    return sms;
+}
+- (NSUInteger)countSms
+{
+    return [sms count];
+}
+- (void)insertObject:(NSObject *)object inSmsAtIndex:(NSUInteger)index
+{
+    [sms insertObject:object atIndex:index];
+}
+- (void)addSmsObject:(NSObject *)object
+{
+    [self insertObject:object inSmsAtIndex:[self countSms]];
+}
+- (void)removeObjectFromSmsAtIndex:(NSUInteger)index
+{
+    [sms removeObjectAtIndex:index];
+}
+- (void)setSms:(NSMutableArray *)newSms
+{
+    [newSms retain];
+    [sms release];
+    sms = newSms;
+}
 @end

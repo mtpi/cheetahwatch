@@ -26,16 +26,30 @@
 
 @implementation CWPreferences
 
+/*
 // class initializer
 + (void)initialize
 {
     static BOOL beenHere;
     if (!beenHere) {
+        // DEPRECATED IN 10.5
         // make derived attributes binding capable
         [self setKeys:[NSArray arrayWithObject:@"resetMode"] triggerChangeNotificationsForDependentKey:@"enableDayFields"];
         [self setKeys:[NSArray arrayWithObject:@"resetMode"] triggerChangeNotificationsForDependentKey:@"enableWeekFields"];
         [self setKeys:[NSArray arrayWithObject:@"resetMode"] triggerChangeNotificationsForDependentKey:@"enableMonthFields"];
         beenHere = YES;
+    }
+} */
+
+
++ (NSSet *)keyPathsForValuesAffectingValueForKey:(NSString *)key
+{
+    if ([key isEqualToString:@"enableDayFields"]) {
+        return [NSSet setWithObject:@"resetMode"];
+    } else if ([key isEqualToString:@"enableWeekFields"]) {
+        return [NSSet setWithObject:@"resetMode"];
+    } else if ([key isEqualToString:@"enableMonthFields"]) {
+        return [NSSet setWithObject:@"resetMode"];
     }
 }
 

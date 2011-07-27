@@ -7,6 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5614116F13DF388A0031FB78 /* CWSMSContactsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5614116E13DF38890031FB78 /* CWSMSContactsController.m */; };
+		5614117213DF38A10031FB78 /* CWSMS.m in Sources */ = {isa = PBXBuildFile; fileRef = 5614117113DF38A10031FB78 /* CWSMS.m */; };
+		5614117513DF38AF0031FB78 /* CWContact.m in Sources */ = {isa = PBXBuildFile; fileRef = 5614117413DF38AF0031FB78 /* CWContact.m */; };
+		5614117D13DF3B3E0031FB78 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5614117B13DF3B3E0031FB78 /* MainMenu.xib */; };
+		5614118013DF3D5D0031FB78 /* SMSContacts.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5614117E13DF3D5D0031FB78 /* SMSContacts.xib */; };
+		5614119713DF845A0031FB78 /* Sparkle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5614119613DF84590031FB78 /* Sparkle.framework */; };
+		566AC06813E0775700845A8D /* CWSMSContainer.m in Sources */ = {isa = PBXBuildFile; fileRef = 566AC06713E0775700845A8D /* CWSMSContainer.m */; };
+		566AC06B13E0776900845A8D /* CWContactsContainer.m in Sources */ = {isa = PBXBuildFile; fileRef = 566AC06A13E0776900845A8D /* CWContactsContainer.m */; };
 		65177DA21062E71300D1B428 /* CWStatusWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 65DB372B105FA7C900D18BD2 /* CWStatusWindow.m */; };
 		6519AE7910C558BA00D89423 /* CWPrettyPrint.m in Sources */ = {isa = PBXBuildFile; fileRef = 6519AE7810C558BA00D89423 /* CWPrettyPrint.m */; };
 		6523815810763F07000A797C /* CWConnectionRecord.m in Sources */ = {isa = PBXBuildFile; fileRef = 6523815710763F07000A797C /* CWConnectionRecord.m */; };
@@ -26,7 +34,6 @@
 		65D0F844105C219300D13A0D /* networks.plist in Resources */ = {isa = PBXBuildFile; fileRef = 65D0F843105C219300D13A0D /* networks.plist */; };
 		65DB3726105F94D200D18BD2 /* CWModem.m in Sources */ = {isa = PBXBuildFile; fileRef = 65DB3725105F94D200D18BD2 /* CWModem.m */; };
 		65F849E3105EECA4003778F9 /* CWModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 65F849E2105EECA4003778F9 /* CWModel.m */; };
-		8D11072A0486CEB800E47090 /* MainMenu.nib in Resources */ = {isa = PBXBuildFile; fileRef = 29B97318FDCFA39411CA2CEA /* MainMenu.nib */; };
 		8D11072B0486CEB800E47090 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C165CFE840E0CC02AAC07 /* InfoPlist.strings */; };
 		8D11072D0486CEB800E47090 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; settings = {ATTRIBUTES = (); }; };
 		8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
@@ -49,8 +56,6 @@
 		CDA4B1FA0C62947300E71C0C /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CDA4B1F90C62947300E71C0C /* Carbon.framework */; };
 		CDAA71770DCFAE4A00C947E0 /* CWUSBFinder.m in Sources */ = {isa = PBXBuildFile; fileRef = CDAA71760DCFAE4A00C947E0 /* CWUSBFinder.m */; };
 		CDAA72050DCFC3ED00C947E0 /* CWNetworks.m in Sources */ = {isa = PBXBuildFile; fileRef = CDAA72040DCFC3ED00C947E0 /* CWNetworks.m */; };
-		CDB6F3430F0A0F84007EDF59 /* Sparkle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CDB6F3420F0A0F84007EDF59 /* Sparkle.framework */; };
-		CDB6F3600F0A113C007EDF59 /* Sparkle.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = CDB6F3420F0A0F84007EDF59 /* Sparkle.framework */; };
 		CDE9AFF70DD1051400CAA997 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8D1107310486CEB800E47090 /* Info.plist */; };
 		CDE9B0140DD10C3900CAA997 /* signal-4-off.tif in Resources */ = {isa = PBXBuildFile; fileRef = CDE9B00F0DD10C3900CAA997 /* signal-4-off.tif */; };
 		CDE9B0150DD10C3900CAA997 /* signal-0-off.tif in Resources */ = {isa = PBXBuildFile; fileRef = CDE9B0100DD10C3900CAA997 /* signal-0-off.tif */; };
@@ -66,7 +71,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				CDB6F3600F0A113C007EDF59 /* Sparkle.framework in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -76,8 +80,21 @@
 		089C165DFE840E0CC02AAC07 /* English */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
 		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		29B97319FDCFA39411CA2CEA /* English */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = English; path = English.lproj/MainMenu.nib; sourceTree = "<group>"; };
 		32CA4F630368D1EE00C91783 /* CheetahWatch_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CheetahWatch_Prefix.pch; sourceTree = "<group>"; };
+		5614116D13DF38890031FB78 /* CWSMSContactsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CWSMSContactsController.h; sourceTree = "<group>"; };
+		5614116E13DF38890031FB78 /* CWSMSContactsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CWSMSContactsController.m; sourceTree = "<group>"; };
+		5614117013DF38A10031FB78 /* CWSMS.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CWSMS.h; sourceTree = "<group>"; };
+		5614117113DF38A10031FB78 /* CWSMS.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CWSMS.m; sourceTree = "<group>"; };
+		5614117313DF38AF0031FB78 /* CWContact.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CWContact.h; sourceTree = "<group>"; };
+		5614117413DF38AF0031FB78 /* CWContact.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CWContact.m; sourceTree = "<group>"; };
+		5614117C13DF3B3E0031FB78 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/MainMenu.xib; sourceTree = "<group>"; };
+		5614117F13DF3D5D0031FB78 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/SMSContacts.xib; sourceTree = "<group>"; };
+		5614119613DF84590031FB78 /* Sparkle.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Sparkle.framework; sourceTree = "<group>"; };
+		566AC06613E0775600845A8D /* CWSMSContainer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CWSMSContainer.h; sourceTree = "<group>"; };
+		566AC06713E0775700845A8D /* CWSMSContainer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CWSMSContainer.m; sourceTree = "<group>"; };
+		566AC06913E0776900845A8D /* CWContactsContainer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CWContactsContainer.h; sourceTree = "<group>"; };
+		566AC06A13E0776900845A8D /* CWContactsContainer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CWContactsContainer.m; sourceTree = "<group>"; };
+		566AC06C13E07DD100845A8D /* GSMUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GSMUtils.h; sourceTree = "<group>"; };
 		6519AE7710C558BA00D89423 /* CWPrettyPrint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CWPrettyPrint.h; sourceTree = "<group>"; };
 		6519AE7810C558BA00D89423 /* CWPrettyPrint.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CWPrettyPrint.m; sourceTree = "<group>"; };
 		6523815610763F07000A797C /* CWConnectionRecord.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CWConnectionRecord.h; sourceTree = "<group>"; };
@@ -138,7 +155,6 @@
 		CDAA71760DCFAE4A00C947E0 /* CWUSBFinder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CWUSBFinder.m; sourceTree = "<group>"; };
 		CDAA72030DCFC3ED00C947E0 /* CWNetworks.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CWNetworks.h; sourceTree = "<group>"; };
 		CDAA72040DCFC3ED00C947E0 /* CWNetworks.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CWNetworks.m; sourceTree = "<group>"; };
-		CDB6F3420F0A0F84007EDF59 /* Sparkle.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Sparkle.framework; sourceTree = "<group>"; };
 		CDE9B00F0DD10C3900CAA997 /* signal-4-off.tif */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = "signal-4-off.tif"; sourceTree = "<group>"; };
 		CDE9B0100DD10C3900CAA997 /* signal-0-off.tif */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = "signal-0-off.tif"; sourceTree = "<group>"; };
 		CDE9B0110DD10C3900CAA997 /* signal-1-off.tif */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = "signal-1-off.tif"; sourceTree = "<group>"; };
@@ -151,12 +167,12 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5614119713DF845A0031FB78 /* Sparkle.framework in Frameworks */,
 				8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */,
 				CDA4B1FA0C62947300E71C0C /* Carbon.framework in Frameworks */,
 				CD391B5F0C8E07700008BABF /* WebKit.framework in Frameworks */,
 				CD0FE26A0C95ADC20071D806 /* IOKit.framework in Frameworks */,
 				CD6F1ABE0CE23B45005CD8D9 /* SystemConfiguration.framework in Frameworks */,
-				CDB6F3430F0A0F84007EDF59 /* Sparkle.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -176,7 +192,7 @@
 		1058C7A0FEA54F0111CA2CBB /* Linked Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				CDB6F3420F0A0F84007EDF59 /* Sparkle.framework */,
+				5614119613DF84590031FB78 /* Sparkle.framework */,
 				CD6F1ABB0CE23B45005CD8D9 /* SystemConfiguration.framework */,
 				CD391B5A0C8E07700008BABF /* WebKit.framework */,
 				CD0FE2690C95ADC20071D806 /* IOKit.framework */,
@@ -218,6 +234,7 @@
 			children = (
 				32CA4F630368D1EE00C91783 /* CheetahWatch_Prefix.pch */,
 				29B97316FDCFA39411CA2CEA /* main.m */,
+				566AC06C13E07DD100845A8D /* GSMUtils.h */,
 			);
 			path = "Other Sources";
 			sourceTree = "<group>";
@@ -225,7 +242,8 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				29B97318FDCFA39411CA2CEA /* MainMenu.nib */,
+				5614117B13DF3B3E0031FB78 /* MainMenu.xib */,
+				5614117E13DF3D5D0031FB78 /* SMSContacts.xib */,
 				65577630106296890030417C /* devices.plist */,
 				65BC7DE91074AB08000C3BBD /* modems.plist */,
 				65D0F843105C219300D13A0D /* networks.plist */,
@@ -259,6 +277,14 @@
 				65F849E2105EECA4003778F9 /* CWModel.m */,
 				659A436E10B4227100684E2F /* CWPreferences.h */,
 				659A436F10B4227100684E2F /* CWPreferences.m */,
+				5614117013DF38A10031FB78 /* CWSMS.h */,
+				5614117113DF38A10031FB78 /* CWSMS.m */,
+				5614117313DF38AF0031FB78 /* CWContact.h */,
+				5614117413DF38AF0031FB78 /* CWContact.m */,
+				566AC06613E0775600845A8D /* CWSMSContainer.h */,
+				566AC06713E0775700845A8D /* CWSMSContainer.m */,
+				566AC06913E0776900845A8D /* CWContactsContainer.h */,
+				566AC06A13E0776900845A8D /* CWContactsContainer.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -278,6 +304,8 @@
 				CDAA72040DCFC3ED00C947E0 /* CWNetworks.m */,
 				CDAA71750DCFAE4A00C947E0 /* CWUSBFinder.h */,
 				CDAA71760DCFAE4A00C947E0 /* CWUSBFinder.m */,
+				5614116D13DF38890031FB78 /* CWSMSContactsController.h */,
+				5614116E13DF38890031FB78 /* CWSMSContactsController.m */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -402,7 +430,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				8D11072B0486CEB800E47090 /* InfoPlist.strings in Resources */,
-				8D11072A0486CEB800E47090 /* MainMenu.nib in Resources */,
 				CD27C4340C8CC565009D1D26 /* no-modem-menu.tif in Resources */,
 				CD8425490C8D40F300D08573 /* signal-0.tif in Resources */,
 				CD84254A0C8D40F300D08573 /* signal-4.tif in Resources */,
@@ -424,6 +451,8 @@
 				65577631106296890030417C /* devices.plist in Resources */,
 				65571C071063D533005E5929 /* Localizable.strings in Resources */,
 				65BC7DEA1074AB09000C3BBD /* modems.plist in Resources */,
+				5614117D13DF3B3E0031FB78 /* MainMenu.xib in Resources */,
+				5614118013DF3D5D0031FB78 /* SMSContacts.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -454,6 +483,11 @@
 				659A437010B4227100684E2F /* CWPreferences.m in Sources */,
 				6519AE7910C558BA00D89423 /* CWPrettyPrint.m in Sources */,
 				CDA3A2B211656F91006DD0C0 /* CWUsagePrefsController.m in Sources */,
+				5614116F13DF388A0031FB78 /* CWSMSContactsController.m in Sources */,
+				5614117213DF38A10031FB78 /* CWSMS.m in Sources */,
+				5614117513DF38AF0031FB78 /* CWContact.m in Sources */,
+				566AC06813E0775700845A8D /* CWSMSContainer.m in Sources */,
+				566AC06B13E0776900845A8D /* CWContactsContainer.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -468,12 +502,20 @@
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
 		};
-		29B97318FDCFA39411CA2CEA /* MainMenu.nib */ = {
+		5614117B13DF3B3E0031FB78 /* MainMenu.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
-				29B97319FDCFA39411CA2CEA /* English */,
+				5614117C13DF3B3E0031FB78 /* English */,
 			);
-			name = MainMenu.nib;
+			name = MainMenu.xib;
+			sourceTree = "<group>";
+		};
+		5614117E13DF3D5D0031FB78 /* SMSContacts.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				5614117F13DF3D5D0031FB78 /* English */,
+			);
+			name = SMSContacts.xib;
 			sourceTree = "<group>";
 		};
 		65571C061063D533005E5929 /* Localizable.strings */ = {
@@ -522,132 +564,70 @@
 		C01FCF4B08A954540054247B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(NATIVE_ARCH)";
-				COPY_PHASE_STRIP = NO;
+				ARCHS = "$(NATIVE_ARCH_ACTUAL)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_1)",
-					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_2)",
-					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
-					"\"$(SRCROOT)/Resources\"",
 					"\"$(SRCROOT)\"",
 				);
-				FRAMEWORK_SEARCH_PATHS_QUOTED_1 = "\"$(SRCROOT)\"";
-				FRAMEWORK_SEARCH_PATHS_QUOTED_2 = "\"$(SRCROOT)\"";
-				FRAMEWORK_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)\"";
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_MODEL_TUNING = G5;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_TREAT_WARNINGS_AS_ERRORS = NO;
+				GCC_PREPROCESSOR_DEFINITIONS = DEBUG_SMS;
 				INFOPLIST_FILE = Info.plist;
-				INSTALL_PATH = "$(HOME)/Applications";
-				MACOSX_DEPLOYMENT_TARGET = 10.4;
+				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = CheetahWatch;
-				WRAPPER_EXTENSION = app;
-				ZERO_LINK = YES;
 			};
 			name = Debug;
 		};
 		C01FCF4C08A954540054247B /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_32_64_BIT_PRE_XCODE_3_1)";
-				ARCHS_STANDARD_32_64_BIT_PRE_XCODE_3_1 = "ppc i386 ppc64 x86_64";
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_1)",
-					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
-					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_FOR_TARGET_2)",
-					"\"$(SRCROOT)/Resources\"",
 					"\"$(SRCROOT)\"",
 				);
-				FRAMEWORK_SEARCH_PATHS_QUOTED_1 = "\"$(SRCROOT)\"";
-				FRAMEWORK_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)\"";
-				FRAMEWORK_SEARCH_PATHS_QUOTED_FOR_TARGET_2 = "\"$(SRCROOT)\"";
-				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
-				GCC_MODEL_TUNING = G5;
-				GCC_TREAT_WARNINGS_AS_ERRORS = NO;
 				INFOPLIST_FILE = Info.plist;
-				INSTALL_PATH = "$(HOME)/Applications";
-				MACOSX_DEPLOYMENT_TARGET = 10.4;
-				"MACOSX_DEPLOYMENT_TARGET[arch=ppc64]" = 10.5;
-				"MACOSX_DEPLOYMENT_TARGET[arch=x86_64]" = 10.5;
+				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = CheetahWatch;
-				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
 		};
 		C01FCF4F08A954540054247B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
-				GCC_WARN_ABOUT_RETURN_TYPE = YES;
-				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET_i386 = 10.4;
-				MACOSX_DEPLOYMENT_TARGET_ppc = 10.4;
-				MACOSX_DEPLOYMENT_TARGET_x86_64 = 10.5;
-				OTHER_CFLAGS = "-DDEBUG";
-				OTHER_LDFLAGS = "-flat_namespace";
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				MACOSX_DEPLOYMENT_TARGET = 10.5;
 				PRODUCT_NAME = CheetahWatch;
-				VALID_ARCHS = "i386 ppc ppc7400 x86_64";
 			};
 			name = Debug;
 		};
 		C01FCF5008A954540054247B /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
-				GCC_WARN_ABOUT_RETURN_TYPE = YES;
-				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET_i386 = 10.4;
-				MACOSX_DEPLOYMENT_TARGET_ppc = 10.4;
-				MACOSX_DEPLOYMENT_TARGET_x86_64 = 10.5;
-				OTHER_LDFLAGS = "-flat_namespace";
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				MACOSX_DEPLOYMENT_TARGET = 10.5;
 				PRODUCT_NAME = CheetahWatch;
-				VALID_ARCHS = "i386 ppc ppc7400 x86_64";
 			};
 			name = Release;
 		};
 		CDE4DA740DDC64B800718E0C /* Debug64 */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
-				GCC_WARN_ABOUT_RETURN_TYPE = YES;
-				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET_i386 = 10.4;
-				MACOSX_DEPLOYMENT_TARGET_ppc = 10.4;
-				MACOSX_DEPLOYMENT_TARGET_x86_64 = 10.5;
-				OTHER_CFLAGS = "-DDEBUG";
-				OTHER_LDFLAGS = "-flat_namespace";
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				MACOSX_DEPLOYMENT_TARGET = 10.5;
 				PRODUCT_NAME = CheetahWatch;
-				VALID_ARCHS = "i386 ppc ppc7400 x86_64";
 			};
 			name = Debug64;
 		};
 		CDE4DA750DDC64B800718E0C /* Debug64 */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				COPY_PHASE_STRIP = NO;
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_1)",
-					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_2)",
-					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
-					"\"$(SRCROOT)/Resources\"",
 					"\"$(SRCROOT)\"",
 				);
-				FRAMEWORK_SEARCH_PATHS_QUOTED_1 = "\"$(SRCROOT)\"";
-				FRAMEWORK_SEARCH_PATHS_QUOTED_2 = "\"$(SRCROOT)\"";
-				FRAMEWORK_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)\"";
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_MODEL_TUNING = G5;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_TREAT_WARNINGS_AS_ERRORS = NO;
 				INFOPLIST_FILE = Info.plist;
-				INSTALL_PATH = "$(HOME)/Applications";
+				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = CheetahWatch;
-				WRAPPER_EXTENSION = app;
-				ZERO_LINK = YES;
 			};
 			name = Debug64;
 		};

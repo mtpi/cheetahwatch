@@ -23,7 +23,7 @@
 
 #import <Cocoa/Cocoa.h>
 
-@class CWModel, CWModem, CWDialer;
+@class CWModel, CWModem, CWDialer, CWSMSContactsController;
 
 @interface CWApplication : NSApplication {
 
@@ -34,6 +34,8 @@
     NSTimer *timer;
     NSStatusItem *statusItem;
     BOOL trafficWarningDialogOpen;
+    
+    CWSMSContactsController *smsContactsController;
     
     // IBOutlets
     IBOutlet NSMenu *statusItemMenu;
@@ -57,6 +59,7 @@
 - (IBAction)clearHistoryMenuAction:(id)sender;
 - (IBAction)setModesPref:(id)sender;
 - (IBAction)setPinLock:(id)sender;
+- (IBAction)showSMSContactsAction:(id)sender;
 
 // accessors
 - (CWModel *)model;
@@ -65,5 +68,7 @@
 - (void)setModem:(CWModem *)newModem;
 - (CWDialer *)dialer;
 - (void)setDialer:(CWDialer *)newDialer;
+- (CWSMSContactsController *)smsContactsController;
+- (void)setSmsContactsController:(CWSMSContactsController*)newController;
 
 @end

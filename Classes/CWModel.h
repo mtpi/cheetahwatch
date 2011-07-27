@@ -40,7 +40,7 @@ typedef enum {
     CWPinStatusUnrequired   = 2,
 } CWPinStatus;
 
-@interface CWModel : NSObject {
+@interface CWModel : NSObject  {
 
     // attributes - volatile
     BOOL modemAvailable;
@@ -68,6 +68,9 @@ typedef enum {
     CWPinStatus pinStatus;
 
     CWConnectionRecord *currentRecord;
+    
+    NSMutableArray *sms;
+    NSMutableArray *contacts;
 
     // attributes - non-volatile
     NSMutableArray *connectionRecords;
@@ -176,6 +179,16 @@ typedef enum {
 
 - (id)delegate;
 - (void)setDelegate:(id)newDelegate;
+
+- (NSMutableArray*)sms;
+- (NSUInteger)countSms;
+- (void)addSmsObject:(NSObject*)object;
+- (void)insertObject:(NSObject*)object inSmsAtIndex:(NSUInteger)index;
+- (void)removeObjectFromSmsAtIndex:(NSUInteger)index;
+- (void)setSms:(NSMutableArray*)newSms;
+
+- (NSMutableArray*)contacts;
+- (void)setContacts:(NSMutableArray*)newContacts;
 
 @end
 

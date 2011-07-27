@@ -24,7 +24,7 @@
 #import <Cocoa/Cocoa.h>
 #import "CWModel.h"
 
-@class CWModel, CWUSBFinder;
+@class CWModel, CWUSBFinder, CWSMS;
 
 @interface CWModem : NSObject {
 
@@ -36,7 +36,10 @@
     NSMutableArray *modemCommands;
     NSTimer *periodicTimer;
     NSTimer *commandTimeoutTimer;
-        
+    
+    CWSMS *curSMS;
+    SEL selForNextReceivedLine;
+    
     // delegate
     id delegate;
 
@@ -51,6 +54,9 @@
 - (void)sendPuk:(NSString*)puk withNewPin:(NSString*)newPin;
 - (void)setModesPref: (CWModesPreference)newPref;
 - (void)setPinLock: (BOOL)enabled pin:(NSString*)pin;
+- (CWSMS*)curSMS;
+- (void)setCurSMS:(CWSMS*)newSMS;
+- (void)sendModemCommand:(NSString*)command;
 
 // accessors
 - (id)delegate;

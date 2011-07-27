@@ -32,6 +32,7 @@
 #import "CWConnectButtonValueTransformer.h"
 #import "CWConnectionStateValueTransformer.h"
 #import "CWPrettyPrint.h"
+#import "CWSMSContactsController.h"
 #import <WebKit/WebKit.h>
 
 
@@ -60,6 +61,7 @@
     [model release];
     [statusItem release];
     [pinRequestDesc release];
+    [smsContactsController release];
     [super dealloc];
 }
 
@@ -304,6 +306,15 @@
 	   didEndSelector:@selector(pinLockSheetDidEnd:returnCode:context:) contextInfo:sender];
 }
 
+- (IBAction)showSMSContactsAction:(id)sender
+{
+    if (![self smsContactsController]) {
+        smsContactsController = [[CWSMSContactsController alloc] initWithWindowNibName:@"SMSContacts"];
+        smsContactsController.model = model;
+    }
+	[smsContactsController showWindow:self];
+}
+
 - (void)pinLockSheetDidEnd:(NSWindow *)sheet returnCode:(NSInteger)returnCode context:(void *)context
 {
     if (returnCode == NSOKButton) {
@@ -357,6 +368,18 @@
 	[newDialer retain];
 	[dialer release];
 	dialer = newDialer;
+}
+
+- (CWSMSContactsController *)smsContactsController
+{
+    return smsContactsController;
+}
+
+- (void)setSmsContactsController:(CWSMSContactsController *)newController
+{
+    [newController retain];
+    [smsContactsController release];
+    smsContactsController = newController;
 }
 
 @end
